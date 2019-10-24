@@ -13,5 +13,4 @@ export const TextInput = styled.input`
   color: ${props => props.theme.textColor};
   max-width: ${(props: any) => props.maxWidth};
   width: 100%;
-  text-align: center;
 `;

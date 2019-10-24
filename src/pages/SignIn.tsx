@@ -35,7 +35,7 @@ class SignIn extends React.Component<Props, State> {
         <br />
         <TextInput type="password" onChange={this.handlePassword} />
         <br />
-        <RaisedButton onClick={this.props.handleSignIn} />
+        <RaisedButton onClick={this.props.handleSignIn}>Sign-in</RaisedButton>
       </div>
     );
   }
