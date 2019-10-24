@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "svg/*": ["src/svg/*"],
+      "components/*": ["src/components/*"]
+    }
+  }
+}
