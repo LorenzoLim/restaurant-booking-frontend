@@ -8,7 +8,7 @@ const Navbar = () => {
       style={{
         width: "100%",
         height: "50px",
-        backgroundColor: "#bc002d"
+        backgroundColor: "#ff3232"
       }}
     >
       <div style={{ float: "right" }}>
