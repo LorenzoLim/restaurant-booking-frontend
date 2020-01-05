@@ -1,6 +1,6 @@
 {
-  "short_name": "Jap-App",
-  "name": "Jap-App",
+  "short_name": "restaurant-booking",
+  "name": "restaurant-booking",
   "icons": [
     {
       "src": "japaneseFlag.ico",

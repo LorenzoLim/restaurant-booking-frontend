@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const TextInput = styled.input`
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 5px 10px;
   box-shadow: inset 0 0 0 1px
     ${(props: any) =>

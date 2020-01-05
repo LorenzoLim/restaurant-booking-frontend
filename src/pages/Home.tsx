@@ -1,8 +1,8 @@
 import * as React from "react";
-import Navbar from "../components/Navbar";
 import { api, setJwt } from "../request";
 import { verify } from "jsonwebtoken";
-import SignIn from "./SignIn";
+import { TextInput } from "../ui/TextInput";
+import { RaisedButton } from "../ui/RaisedButton";
 
 interface Props {}
 
@@ -75,14 +75,29 @@ class Home extends React.Component<Props, State> {
     });
   };
 
+  handleEmail = (event: any) => {
+    this.setState({
+      email: event.target.value
+    });
+  };
+
+  handlePassword = (event: any) => {
+    this.setState({
+      password: event.target.value
+    });
+  };
+
   public render() {
     const { role, token, userId } = this.state;
     return (
       <div style={{ width: "100%" }}>
-        <Navbar />
         <div style={{ maxWidth: 1070, margin: "auto" }}>
           <div>
-            <SignIn handleSignIn={this.handleSignIn} />
+            <TextInput onChange={this.handleEmail} />
+            <br />
+            <TextInput type="password" onChange={this.handlePassword} />
+            <br />
+            <RaisedButton onClick={this.handleSignIn}>Sign-In</RaisedButton>
           </div>
         </div>
       </div>
