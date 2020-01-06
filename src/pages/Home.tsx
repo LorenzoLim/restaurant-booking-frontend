@@ -1,7 +1,8 @@
 import * as React from "react";
 import Container from "../components/Container";
 import NavBar from "../components/Navbar";
-import Card from "../components/Card";
+// import Card from "../components/Card";
+import Modal from "../components/Modal";
 import { TextInput } from "../ui/TextInput";
 import DatePicker from "react-date-picker";
 
@@ -62,10 +63,54 @@ class Home extends React.Component<never, State> {
                 />
               </div>
             </div>
-            <Card title="7:30PM" />
-            <Card title="8:00PM" />
-            <Card title="8:30PM" />
-            <Card title="9:00PM" />
+            <Modal title="7:30PM">
+              <div
+                style={{
+                  padding: 20
+                }}
+              >
+                Date: 6/1/2020
+                <br /> Time: 7:30PM
+                <br /> Table for: 4
+                <br /> Booked under: Lorenzo Lim
+              </div>
+            </Modal>
+            <Modal title="8:00PM">
+              <div
+                style={{
+                  padding: 20
+                }}
+              >
+                Date: 6/1/2020
+                <br /> Time: 8:00PM
+                <br /> Table for: 1
+                <br /> Booked under: Lorenzo Lim
+              </div>
+            </Modal>
+            <Modal title="8:30PM">
+              <div
+                style={{
+                  padding: 20
+                }}
+              >
+                Date: 6/1/2020
+                <br /> Time: 8:30PM
+                <br /> Table for: 8
+                <br /> Booked under: Lorenzo Lim
+              </div>
+            </Modal>
+            <Modal title="9:00PM">
+              <div
+                style={{
+                  padding: 20
+                }}
+              >
+                Date: 6/1/2020
+                <br /> Time: 9:00PM
+                <br /> Table for: 2
+                <br /> Booked under: Lorenzo Lim
+              </div>
+            </Modal>
           </div>
         </Container>
       </div>
