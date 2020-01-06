@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const Container = () => {
+const Container = (props: any) => {
   return (
     <div
       style={{
@@ -14,7 +14,9 @@ const Container = () => {
         backgroundColor: "#F5F5F5",
         zIndex: -1
       }}
-    />
+    >
+      {props.children}
+    </div>
   );
 };
 

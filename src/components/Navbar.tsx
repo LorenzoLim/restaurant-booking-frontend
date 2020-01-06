@@ -11,9 +11,12 @@ const Navbar = () => {
         backgroundColor: "#ff3232"
       }}
     >
-      <div style={{ float: "right" }}>
+      <div style={{ float: "right", margin: "0px 10px" }}>
         <NavLink className="navbar-item" to="/" activeClassName="is-active">
           <NavbarButton style={{ fontSize: 18 }}>Home</NavbarButton>
+        </NavLink>
+        <NavLink className="navbar-item" to="/" activeClassName="is-active">
+          <NavbarButton style={{ fontSize: 18 }}>Bookings</NavbarButton>
         </NavLink>
       </div>
     </div>
