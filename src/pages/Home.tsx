@@ -1,6 +1,7 @@
 import * as React from "react";
 import Container from "../components/Container";
 import NavBar from "../components/Navbar";
+import Card from "../components/Card";
 import { TextInput } from "../ui/TextInput";
 import DatePicker from "react-date-picker";
 
@@ -43,7 +44,7 @@ class Home extends React.Component<never, State> {
           >
             Booking
           </div>
-          <div style={{ padding: 50, width: "100%" }}>
+          <div style={{ padding: 50 }}>
             <div style={{ display: "flex" }}>
               <div style={{ width: "40%" }}>
                 <p style={{ marginTop: 0 }}>Date:</p>
@@ -61,6 +62,10 @@ class Home extends React.Component<never, State> {
                 />
               </div>
             </div>
+            <Card title="7:30PM" />
+            <Card title="8:00PM" />
+            <Card title="8:30PM" />
+            <Card title="9:00PM" />
           </div>
         </Container>
       </div>
