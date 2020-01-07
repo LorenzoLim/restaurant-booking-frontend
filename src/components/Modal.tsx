@@ -32,6 +32,7 @@ class Modal extends React.Component<Props, State> {
             width: "100%",
             marginTop: 25,
             cursor: "pointer",
+            justifyContent: "center",
             boxShadow:
               "0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)"
           }}
@@ -55,15 +56,15 @@ class Modal extends React.Component<Props, State> {
               overflow: "auto",
               backgroundColor: "rgba(0,0,0,0.4)"
             }}
-            onClick={this.toggleModal}
           >
             <div
               style={{
                 backgroundColor: "#fefefe",
                 margin: "auto",
                 width: "80%",
-                minHeight: 400,
-                maxWidth: 800,
+                minHeight: 300,
+                maxWidth: 400,
+                zIndex: 2,
                 overflow: "auto"
               }}
             >
@@ -72,11 +73,26 @@ class Modal extends React.Component<Props, State> {
                   height: 40,
                   backgroundColor: "#ff3232",
                   color: "white",
-                  lineHeight: 2.5,
-                  paddingLeft: 20
+                  lineHeight: 2.0,
+                  paddingLeft: 20,
+                  fontSize: 20
                 }}
               >
                 Booking Information
+                <span
+                  style={{
+                    color: "white",
+                    float: "right",
+                    marginRight: 10,
+                    marginTop: -20,
+                    fontSize: 38,
+                    fontWeight: "bold",
+                    cursor: "pointer"
+                  }}
+                  onClick={this.toggleModal}
+                >
+                  &times;
+                </span>
               </div>
               {this.props.children}
             </div>

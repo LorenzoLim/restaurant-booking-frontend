@@ -4,17 +4,20 @@ import NavBar from "../components/Navbar";
 // import Card from "../components/Card";
 import Modal from "../components/Modal";
 import { TextInput } from "../ui/TextInput";
+import { RaisedButton } from "../ui/RaisedButton";
 import DatePicker from "react-date-picker";
 
 interface State {
   date?: Date;
   amount?: number;
+  booked: boolean;
 }
 
 class Home extends React.Component<never, State> {
   state = {
     date: new Date(),
-    amount: 1
+    amount: 1,
+    booked: false
   };
 
   handleDate = (date: any) => {
@@ -26,6 +29,12 @@ class Home extends React.Component<never, State> {
   handleAmount = (event: any) => {
     this.setState({
       amount: event.target.value
+    });
+  };
+
+  handleBooking = () => {
+    this.setState({
+      booked: !this.state.booked
     });
   };
 
@@ -64,16 +73,36 @@ class Home extends React.Component<never, State> {
               </div>
             </div>
             <Modal title="7:30PM">
-              <div
-                style={{
-                  padding: 20
-                }}
-              >
-                Date: 6/1/2020
-                <br /> Time: 7:30PM
-                <br /> Table for: 4
-                <br /> Booked under: Lorenzo Lim
-              </div>
+              {this.state.booked ? (
+                <div
+                  style={{
+                    padding: 20
+                  }}
+                >
+                  <p>Your booking has been confirmed</p>
+                  <div style={{ paddingTop: 10 }}>
+                    <RaisedButton onClick={this.handleBooking}>
+                      Cancel Booking
+                    </RaisedButton>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    padding: 20
+                  }}
+                >
+                  <p>Date: 6/1/2020</p>
+                  <p>Time: 7:30PM</p>
+                  <p>Table for: 4</p>
+                  <p>Booked under: Lorenzo Lim</p>
+                  <div style={{ paddingTop: 10 }}>
+                    <RaisedButton onClick={this.handleBooking}>
+                      Book Now
+                    </RaisedButton>
+                  </div>
+                </div>
+              )}
             </Modal>
             <Modal title="8:00PM">
               <div
