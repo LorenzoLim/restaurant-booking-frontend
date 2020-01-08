@@ -1,7 +1,7 @@
 import * as React from "react";
 import Container from "../components/Container";
 import NavBar from "../components/Navbar";
-// import Card from "../components/Card";
+import { api } from "../request";
 import Modal from "../components/Modal";
 import { TextInput } from "../ui/TextInput";
 import { RaisedButton } from "../ui/RaisedButton";
@@ -9,16 +9,26 @@ import DatePicker from "react-date-picker";
 
 interface State {
   date?: Date;
-  amount?: number;
+  size?: number;
   booked: boolean;
+  hours?: number;
+  minutes?: number;
+  bookings: any;
 }
 
 class Home extends React.Component<never, State> {
   state = {
     date: new Date(),
     amount: 1,
-    booked: false
+    booked: false,
+    hours: undefined,
+    minutes: undefined,
+    bookings: []
   };
+
+  componentDidMount() {
+    this.fetchTimes();
+  }
 
   handleDate = (date: any) => {
     this.setState({
@@ -28,17 +38,54 @@ class Home extends React.Component<never, State> {
 
   handleAmount = (event: any) => {
     this.setState({
-      amount: event.target.value
+      size: event.target.value
     });
   };
 
   handleBooking = () => {
+    var newTime = this.state.date;
+    if (this.state.hours && this.state.minutes) {
+      newTime.setHours(this.state.hours!);
+      newTime.setMinutes(this.state.minutes!);
+    }
+
     this.setState({
-      booked: !this.state.booked
+      booked: !this.state.booked,
+      date: newTime
     });
   };
 
+  fetchTimes = () => {
+    api({
+      method: "get",
+      url: "/bookings",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => {
+        console.log("response: ", response.data);
+        this.setState({
+          bookings: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  formatAMPM = (date: Date) => {
+    let hours = date.getHours();
+    let minutes: any = date.getMinutes();
+    let ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    let strTime = hours + ":" + minutes + " " + ampm;
+    return strTime;
+  };
+
   public render() {
+    const { bookings } = this.state;
+
     return (
       <div>
         <Container>
@@ -64,7 +111,7 @@ class Home extends React.Component<never, State> {
                 />
               </div>
               <div style={{ width: "200px" }}>
-                <p style={{ marginTop: 0 }}>How many people? (Max 8)</p>
+                <p style={{ marginTop: 0 }}>How many people? (Max 6)</p>
                 <TextInput
                   style={{ margin: 0, width: 200 }}
                   onChange={this.handleAmount}
@@ -72,39 +119,51 @@ class Home extends React.Component<never, State> {
                 />
               </div>
             </div>
-            <Modal title="7:30PM">
-              {this.state.booked ? (
-                <div
-                  style={{
-                    padding: 20
-                  }}
-                >
-                  <p>Your booking has been confirmed</p>
-                  <div style={{ paddingTop: 10 }}>
-                    <RaisedButton onClick={this.handleBooking}>
-                      Cancel Booking
-                    </RaisedButton>
-                  </div>
+            {bookings.map((booking: any, index: number) => {
+              const dateString = new Date(booking.dateTime);
+              const date = dateString.toLocaleDateString();
+              const timeString = new Date(booking.dateTime);
+              const time = this.formatAMPM(timeString);
+
+              return (
+                <div key={index}>
+                  <Modal title={time}>
+                    {this.state.booked ? (
+                      <div
+                        style={{
+                          padding: 20
+                        }}
+                      >
+                        <p>Your booking has been confirmed</p>
+                        <div style={{ paddingTop: 10 }}>
+                          <RaisedButton onClick={this.handleBooking}>
+                            Cancel Booking
+                          </RaisedButton>
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        style={{
+                          padding: 20
+                        }}
+                      >
+                        <p>Date: {date}</p>
+                        <p>Time: {time}</p>
+                        <p>Table for: {booking.size}</p>
+                        <p>Booking under: {booking.name}</p>
+                        <div style={{ paddingTop: 10 }}>
+                          <RaisedButton onClick={this.handleBooking}>
+                            Book Now
+                          </RaisedButton>
+                        </div>
+                      </div>
+                    )}
+                  </Modal>
                 </div>
-              ) : (
-                <div
-                  style={{
-                    padding: 20
-                  }}
-                >
-                  <p>Date: 6/1/2020</p>
-                  <p>Time: 7:30PM</p>
-                  <p>Table for: 4</p>
-                  <p>Booked under: Lorenzo Lim</p>
-                  <div style={{ paddingTop: 10 }}>
-                    <RaisedButton onClick={this.handleBooking}>
-                      Book Now
-                    </RaisedButton>
-                  </div>
-                </div>
-              )}
-            </Modal>
-            <Modal title="8:00PM">
+              );
+            })}
+
+            {/* <Modal title="8:00PM">
               <div
                 style={{
                   padding: 20
@@ -139,7 +198,7 @@ class Home extends React.Component<never, State> {
                 <br /> Table for: 2
                 <br /> Booked under: Lorenzo Lim
               </div>
-            </Modal>
+            </Modal> */}
           </div>
         </Container>
       </div>
