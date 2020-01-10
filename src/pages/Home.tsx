@@ -57,9 +57,13 @@ class Home extends React.Component<never, State> {
 
   fetchTimes = () => {
     api({
-      method: "get",
-      url: "/bookings",
-      headers: { "Content-Type": "application/json" }
+      method: "post",
+      url: "/bookings/byDate",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        dateTime:
+          "Wed Jan 20 2020 21:30:36 GMT+1000 (Australian Eastern Standard Time)"
+      }
     })
       .then(response => {
         console.log("response: ", response.data);
