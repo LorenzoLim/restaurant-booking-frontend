@@ -31,9 +31,14 @@ class Home extends React.Component<never, State> {
   }
 
   handleDate = (date: any) => {
-    this.setState({
-      date: date
-    });
+    this.setState(
+      {
+        date: date
+      },
+      () => {
+        this.fetchTimes();
+      }
+    );
   };
 
   handleAmount = (event: any) => {
@@ -166,43 +171,6 @@ class Home extends React.Component<never, State> {
                 </div>
               );
             })}
-
-            {/* <Modal title="8:00PM">
-              <div
-                style={{
-                  padding: 20
-                }}
-              >
-                Date: 6/1/2020
-                <br /> Time: 8:00PM
-                <br /> Table for: 1
-                <br /> Booked under: Lorenzo Lim
-              </div>
-            </Modal>
-            <Modal title="8:30PM">
-              <div
-                style={{
-                  padding: 20
-                }}
-              >
-                Date: 6/1/2020
-                <br /> Time: 8:30PM
-                <br /> Table for: 8
-                <br /> Booked under: Lorenzo Lim
-              </div>
-            </Modal>
-            <Modal title="9:00PM">
-              <div
-                style={{
-                  padding: 20
-                }}
-              >
-                Date: 6/1/2020
-                <br /> Time: 9:00PM
-                <br /> Table for: 2
-                <br /> Booked under: Lorenzo Lim
-              </div>
-            </Modal> */}
           </div>
         </Container>
       </div>
