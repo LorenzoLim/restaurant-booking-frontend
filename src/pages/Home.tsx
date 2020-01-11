@@ -92,8 +92,8 @@ class Home extends React.Component<never, State> {
 
     return (
       <div>
+        <NavBar />
         <Container>
-          <NavBar />
           <div
             style={{
               marginLeft: 50,
