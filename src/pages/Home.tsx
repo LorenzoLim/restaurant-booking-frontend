@@ -72,11 +72,8 @@ class Home extends React.Component<never, State> {
     })
       .then(response => {
         console.log("response: ", response.data);
-        const sizeFilter = response.data.filter((booking: any) => {
-          booking.size >= this.state.amount;
-        });
         this.setState({
-          bookings: sizeFilter
+          bookings: response.data
         });
       })
       .catch(error => {
