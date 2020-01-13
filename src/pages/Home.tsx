@@ -9,7 +9,7 @@ import DatePicker from "react-date-picker";
 
 interface State {
   date?: Date;
-  size?: number;
+  amount?: number;
   booked: boolean;
   hours?: number;
   minutes?: number;
@@ -43,7 +43,7 @@ class Home extends React.Component<never, State> {
 
   handleAmount = (event: any) => {
     this.setState({
-      size: event.target.value
+      amount: event.target.value
     });
   };
 
@@ -71,9 +71,28 @@ class Home extends React.Component<never, State> {
       }
     })
       .then(response => {
-        console.log("response: ", response.data);
+        const tableAmountMatch = response.data
+          .map((booking: any) => {
+            if (!booking.booked) {
+              if (this.state.amount <= 2 && booking.size === 2) {
+                booking.size = this.state.amount;
+                return booking;
+              } else if (this.state.amount <= 4 && booking.size === 4) {
+                booking.size = this.state.amount;
+                return booking;
+              } else if (this.state.amount <= 6 && booking.size === 6) {
+                booking.size = this.state.amount;
+                return booking;
+              } else {
+                return;
+              }
+            } else {
+              return;
+            }
+          })
+          .filter((booking: any) => booking);
         this.setState({
-          bookings: response.data
+          bookings: tableAmountMatch
         });
       })
       .catch(error => {
@@ -84,7 +103,7 @@ class Home extends React.Component<never, State> {
   formatAMPM = (date: Date) => {
     let hours = date.getHours();
     let minutes: any = date.getMinutes();
-    let ampm = hours >= 12 ? "pm" : "am";
+    let ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? "0" + minutes : minutes;
