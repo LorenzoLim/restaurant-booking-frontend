@@ -42,9 +42,14 @@ class Home extends React.Component<never, State> {
   };
 
   handleAmount = (event: any) => {
-    this.setState({
-      amount: event.target.value
-    });
+    this.setState(
+      {
+        amount: event.target.value
+      },
+      () => {
+        this.fetchTimes();
+      }
+    );
   };
 
   handleBooking = () => {
