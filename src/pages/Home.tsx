@@ -52,7 +52,7 @@ class Home extends React.Component<never, State> {
     );
   };
 
-  handleBooking = () => {
+  handleBooking = (booking: any) => {
     var newTime = this.state.date;
     if (this.state.hours && this.state.minutes) {
       newTime.setHours(this.state.hours!);
