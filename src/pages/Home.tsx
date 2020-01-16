@@ -9,20 +9,18 @@ import DatePicker from "react-date-picker";
 
 interface State {
   date?: Date;
+  selectedTime?: Date;
   amount?: number;
   booked: boolean;
-  hours?: number;
-  minutes?: number;
   bookings: any;
 }
 
 class Home extends React.Component<never, State> {
   state = {
     date: new Date(),
+    selectedTime: new Date(),
     amount: 1,
     booked: false,
-    hours: undefined,
-    minutes: undefined,
     bookings: []
   };
 
@@ -52,12 +50,8 @@ class Home extends React.Component<never, State> {
     );
   };
 
-  handleBooking = (booking: any) => {
+  handleBooking = () => {
     var newTime = this.state.date;
-    if (this.state.hours && this.state.minutes) {
-      newTime.setHours(this.state.hours!);
-      newTime.setMinutes(this.state.minutes!);
-    }
 
     this.setState({
       booked: !this.state.booked,
@@ -89,10 +83,10 @@ class Home extends React.Component<never, State> {
                 booking.size = this.state.amount;
                 return booking;
               } else {
-                return;
+                return null;
               }
             } else {
-              return;
+              return null;
             }
           })
           .filter((booking: any) => booking);
