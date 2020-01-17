@@ -1,7 +1,10 @@
 import * as React from "react";
+import { RaisedButton } from "../ui/RaisedButton";
 
 interface Props {
   title: string;
+  booking?: any;
+  handleBooking?: any;
 }
 interface State {
   open: boolean;
@@ -20,6 +23,10 @@ class Modal extends React.Component<Props, State> {
     this.setState(prevState => ({
       open: !this.state.open
     }));
+  };
+
+  setTime = () => {
+    this.props.handleBooking(this.props.booking);
   };
 
   public render() {
@@ -95,6 +102,9 @@ class Modal extends React.Component<Props, State> {
                 </span>
               </div>
               {this.props.children}
+              <div style={{ paddingTop: 10 }}>
+                <RaisedButton onClick={this.setTime}>Book Now</RaisedButton>
+              </div>
             </div>
           </div>
         )}

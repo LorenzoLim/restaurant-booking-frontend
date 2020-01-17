@@ -4,7 +4,6 @@ import NavBar from "../components/Navbar";
 import { api } from "../request";
 import Modal from "../components/Modal";
 import { TextInput } from "../ui/TextInput";
-import { RaisedButton } from "../ui/RaisedButton";
 import DatePicker from "react-date-picker";
 
 interface State {
@@ -50,10 +49,11 @@ class Home extends React.Component<never, State> {
     );
   };
 
-  handleBooking = () => {
+  handleBooking = (booking: any) => {
     this.setState({
       booked: !this.state.booked,
-      date: this.state.selectedTime
+      date: this.state.selectedTime,
+      selectedTime: booking.dateTime
     });
   };
 
@@ -152,7 +152,11 @@ class Home extends React.Component<never, State> {
 
               return (
                 <div key={index}>
-                  <Modal title={time}>
+                  <Modal
+                    title={time}
+                    booking={booking}
+                    handleBooking={this.handleBooking}
+                  >
                     {this.state.booked ? (
                       <div
                         style={{
@@ -160,11 +164,6 @@ class Home extends React.Component<never, State> {
                         }}
                       >
                         <p>Your booking has been confirmed</p>
-                        <div style={{ paddingTop: 10 }}>
-                          <RaisedButton onClick={this.handleBooking}>
-                            Cancel Booking
-                          </RaisedButton>
-                        </div>
                       </div>
                     ) : (
                       <div
@@ -176,11 +175,6 @@ class Home extends React.Component<never, State> {
                         <p>Time: {time}</p>
                         <p>Table for: {booking.size}</p>
                         <p>Booking under: {booking.name}</p>
-                        <div style={{ paddingTop: 10 }}>
-                          <RaisedButton onClick={this.handleBooking}>
-                            Book Now
-                          </RaisedButton>
-                        </div>
                       </div>
                     )}
                   </Modal>
