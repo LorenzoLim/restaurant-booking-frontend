@@ -5,6 +5,7 @@ import { api } from "../request";
 import Modal from "../components/Modal";
 import { TextInput } from "../ui/TextInput";
 import DatePicker from "react-date-picker";
+const moment = require("moment");
 
 interface State {
   date?: Date;
@@ -51,7 +52,6 @@ class Home extends React.Component<never, State> {
 
   handleBooking = (booking: any) => {
     this.setState({
-      booked: !this.state.booked,
       date: this.state.selectedTime,
       selectedTime: booking.dateTime
     });
@@ -133,6 +133,7 @@ class Home extends React.Component<never, State> {
                 <DatePicker
                   onChange={this.handleDate}
                   value={this.state.date}
+                  minDate={moment().toDate()}
                 />
               </div>
               <div style={{ width: "200px" }}>
