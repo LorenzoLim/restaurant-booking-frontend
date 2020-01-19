@@ -50,7 +50,12 @@ class TimeCard extends React.Component<Props, State> {
             {this.props.title}
           </div>
         </div>
-        <Modal open={this.state.open} toggleModal={this.toggleModal}>
+        <Modal
+          open={this.state.open}
+          toggleModal={this.toggleModal}
+          booking={this.props.booking}
+          handleBooking={this.props.handleBooking}
+        >
           {this.props.children}
         </Modal>
       </div>

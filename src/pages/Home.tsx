@@ -9,7 +9,7 @@ const moment = require("moment");
 
 interface State {
   date?: Date;
-  selectedTime?: Date;
+  selectedTime?: any;
   amount?: number;
   booked: boolean;
   bookings: any;
@@ -52,7 +52,7 @@ class Home extends React.Component<never, State> {
 
   handleBooking = (booking: any) => {
     this.setState({
-      date: this.state.selectedTime,
+      booked: !this.state.booked,
       selectedTime: booking.dateTime
     });
   };
