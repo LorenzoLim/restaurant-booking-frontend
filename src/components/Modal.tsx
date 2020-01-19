@@ -98,7 +98,7 @@ class Modal extends React.Component<Props, State> {
                 </span>
               </div>
               {this.props.children}
-              <div style={{ paddingTop: 10 }}>
+              <div style={{ margin: "0px 0px 20px 20px" }}>
                 <RaisedButton onClick={this.setTime}>Book Now</RaisedButton>
               </div>
             </div>
