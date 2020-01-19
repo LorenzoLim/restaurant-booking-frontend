@@ -2,7 +2,7 @@ import * as React from "react";
 import Container from "../components/Container";
 import NavBar from "../components/Navbar";
 import { api } from "../request";
-import Modal from "../components/Modal";
+import TimeCard from "../components/TimeCard";
 import { TextInput } from "../ui/TextInput";
 import DatePicker from "react-date-picker";
 const moment = require("moment");
@@ -153,7 +153,7 @@ class Home extends React.Component<never, State> {
 
               return (
                 <div key={index}>
-                  <Modal
+                  <TimeCard
                     title={time}
                     booking={booking}
                     handleBooking={this.handleBooking}
@@ -178,7 +178,7 @@ class Home extends React.Component<never, State> {
                         <p>Booking under: {booking.name}</p>
                       </div>
                     )}
-                  </Modal>
+                  </TimeCard>
                 </div>
               );
             })}

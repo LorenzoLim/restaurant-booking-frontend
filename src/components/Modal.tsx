@@ -2,10 +2,12 @@ import * as React from "react";
 import { RaisedButton } from "../ui/RaisedButton";
 
 interface Props {
-  title: string;
   booking?: any;
   handleBooking?: any;
+  toggleModal: (open: boolean) => void;
+  open?: boolean;
 }
+
 interface State {
   open: boolean;
 }
@@ -15,14 +17,25 @@ class Modal extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      open: false
+      open: this.props.open!
     };
   }
 
+  componentWillReceiveProps(nextProps: any) {
+    if (nextProps.open !== this.state.open) {
+      this.setState({ open: nextProps.open });
+    }
+  }
+
   toggleModal = () => {
-    this.setState(prevState => ({
-      open: !this.state.open
-    }));
+    this.setState(
+      prevState => ({
+        open: !prevState.open
+      }),
+      () => {
+        this.props.toggleModal(this.state.open);
+      }
+    );
   };
 
   setTime = () => {
@@ -32,23 +45,6 @@ class Modal extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <div
-          style={{
-            display: "flex",
-            height: 50,
-            width: "100%",
-            marginTop: 25,
-            cursor: "pointer",
-            justifyContent: "center",
-            boxShadow:
-              "0px 3px 3px -2px rgba(0,0,0,0.2), 0px 3px 4px 0px rgba(0,0,0,0.14), 0px 1px 8px 0px rgba(0,0,0,0.12)"
-          }}
-          onClick={this.toggleModal}
-        >
-          <div style={{ padding: 15, fontWeight: "bold" }}>
-            {this.props.title}
-          </div>
-        </div>
         {this.state.open && (
           <div
             style={{
