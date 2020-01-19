@@ -51,10 +51,31 @@ class Home extends React.Component<never, State> {
   };
 
   handleBooking = (booking: any) => {
+    const bookingDate = new Date(booking.dateTime);
+    console.log(booking._id);
+
     this.setState({
       booked: !this.state.booked,
-      selectedTime: booking.dateTime
+      selectedTime: bookingDate
     });
+
+    api({
+      method: "put",
+      url: `/bookings/${booking._id}`,
+      headers: { "Content-Type": "application/json" },
+      data: {
+        dateTime: bookingDate,
+        name: "Test User",
+        size: this.state.amount,
+        booked: true
+      }
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   fetchTimes = () => {
