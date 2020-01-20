@@ -10,7 +10,7 @@ const moment = require("moment");
 interface State {
   date?: Date;
   selectedTime?: any;
-  amount?: number;
+  size?: number;
   booked: boolean;
   bookings: any;
 }
@@ -19,7 +19,7 @@ class Home extends React.Component<never, State> {
   state = {
     date: new Date(),
     selectedTime: new Date(),
-    amount: 1,
+    size: 1,
     booked: false,
     bookings: []
   };
@@ -42,7 +42,7 @@ class Home extends React.Component<never, State> {
   handleAmount = (event: any) => {
     this.setState(
       {
-        amount: event.target.value
+        size: event.target.value
       },
       () => {
         this.fetchTimes();
@@ -66,7 +66,7 @@ class Home extends React.Component<never, State> {
       data: {
         dateTime: bookingDate,
         name: "Test User",
-        size: this.state.amount,
+        size: this.state.size,
         booked: true
       }
     })
@@ -89,17 +89,17 @@ class Home extends React.Component<never, State> {
       }
     })
       .then(response => {
-        const tableAmountMatch = response.data
+        const tableSizeMatch = response.data
           .map((booking: any) => {
             if (!booking.booked) {
-              if (this.state.amount <= 2 && booking.size === 2) {
-                booking.size = this.state.amount;
+              if (this.state.size <= 2 && booking.size === 2) {
+                booking.size = this.state.size;
                 return booking;
-              } else if (this.state.amount <= 4 && booking.size === 4) {
-                booking.size = this.state.amount;
+              } else if (this.state.size <= 4 && booking.size === 4) {
+                booking.size = this.state.size;
                 return booking;
-              } else if (this.state.amount <= 6 && booking.size === 6) {
-                booking.size = this.state.amount;
+              } else if (this.state.size <= 6 && booking.size === 6) {
+                booking.size = this.state.size;
                 return booking;
               } else {
                 return null;
@@ -110,7 +110,7 @@ class Home extends React.Component<never, State> {
           })
           .filter((booking: any) => booking);
         this.setState({
-          bookings: tableAmountMatch
+          bookings: tableSizeMatch
         });
       })
       .catch(error => {
@@ -162,7 +162,7 @@ class Home extends React.Component<never, State> {
                 <TextInput
                   style={{ margin: 0, width: 200 }}
                   onChange={this.handleAmount}
-                  value={this.state.amount}
+                  value={this.state.size}
                 />
               </div>
             </div>

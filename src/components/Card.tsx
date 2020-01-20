@@ -74,6 +74,6 @@ class Card extends React.Component<Props, State> {
 // Cancel Booking
 // Booking/ Booked
 // Booking name
-// Booking amount
+// Booking Size
 
 export default Card;
