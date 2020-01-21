@@ -80,6 +80,8 @@ class Home extends React.Component<never, State> {
 
   fetchTimes = () => {
     const date = this.state.date ? this.state.date : new Date();
+    console.log(date);
+
     api({
       method: "post",
       url: "/bookings/byDate",
