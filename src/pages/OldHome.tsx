@@ -13,7 +13,6 @@ interface State {
   size?: number;
   booked: boolean;
   bookings: any;
-  tables?: any;
 }
 
 class Home extends React.Component<never, State> {
@@ -22,8 +21,7 @@ class Home extends React.Component<never, State> {
     selectedTime: new Date(),
     size: 1,
     booked: false,
-    bookings: [],
-    tables: []
+    bookings: []
   };
 
   componentDidMount() {
@@ -85,21 +83,36 @@ class Home extends React.Component<never, State> {
     console.log(date);
 
     api({
-      method: "get",
-      url: "/available-times",
-      headers: { "Content-Type": "application/json" }
+      method: "post",
+      url: "/bookings/byDate",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        dateTime: date
+      }
     })
       .then(response => {
-        const newTables = response.data.map((table: any) => {
-          const newTable = {
-            size: table.tableId[0].size,
-            minSize: table.tableId[0].minSize,
-            time: table.time
-          };
-          return newTable;
-        });
+        const tableSizeMatch = response.data
+          .map((booking: any) => {
+            if (!booking.booked) {
+              if (this.state.size <= 2 && booking.size === 2) {
+                booking.size = this.state.size;
+                return booking;
+              } else if (this.state.size <= 4 && booking.size === 4) {
+                booking.size = this.state.size;
+                return booking;
+              } else if (this.state.size <= 6 && booking.size === 6) {
+                booking.size = this.state.size;
+                return booking;
+              } else {
+                return null;
+              }
+            } else {
+              return null;
+            }
+          })
+          .filter((booking: any) => booking);
         this.setState({
-          tables: newTables
+          bookings: tableSizeMatch
         });
       })
       .catch(error => {
@@ -119,7 +132,7 @@ class Home extends React.Component<never, State> {
   };
 
   public render() {
-    const { tables } = this.state;
+    const { bookings } = this.state;
 
     return (
       <div>
@@ -155,16 +168,17 @@ class Home extends React.Component<never, State> {
                 />
               </div>
             </div>
-            {tables.map((table: any, index: number) => {
-              const dateString = new Date(table.time);
+            {bookings.map((booking: any, index: number) => {
+              const dateString = new Date(booking.dateTime);
               const date = dateString.toLocaleDateString();
-              const time = this.formatAMPM(dateString);
+              const timeString = new Date(booking.dateTime);
+              const time = this.formatAMPM(timeString);
 
               return (
                 <div key={index}>
                   <TimeCard
                     title={time}
-                    booking={table}
+                    booking={booking}
                     handleBooking={this.handleBooking}
                   >
                     {this.state.booked ? (
@@ -183,8 +197,8 @@ class Home extends React.Component<never, State> {
                       >
                         <p>Date: {date}</p>
                         <p>Time: {time}</p>
-                        <p>Table for: {table.size}</p>
-                        <p>Booking under: Test</p>
+                        <p>Table for: {booking.size}</p>
+                        <p>Booking under: {booking.name}</p>
                       </div>
                     )}
                   </TimeCard>
