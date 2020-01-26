@@ -107,6 +107,48 @@ class Home extends React.Component<never, State> {
       });
   };
 
+  fetchAvailibities = () => {
+    const date = this.state.date ? this.state.date : new Date();
+    console.log(date);
+
+    api({
+      method: "post",
+      url: "/bookings/byDate",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        dateTime: date
+      }
+    })
+      .then(response => {
+        const tableSizeMatch = response.data
+          .map((booking: any) => {
+            if (!booking.booked) {
+              if (this.state.size <= 2 && booking.size === 2) {
+                booking.size = this.state.size;
+                return booking;
+              } else if (this.state.size <= 4 && booking.size === 4) {
+                booking.size = this.state.size;
+                return booking;
+              } else if (this.state.size <= 6 && booking.size === 6) {
+                booking.size = this.state.size;
+                return booking;
+              } else {
+                return null;
+              }
+            } else {
+              return null;
+            }
+          })
+          .filter((booking: any) => booking);
+        this.setState({
+          bookings: tableSizeMatch
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   formatAMPM = (date: Date) => {
     let hours = date.getHours();
     let minutes: any = date.getMinutes();
