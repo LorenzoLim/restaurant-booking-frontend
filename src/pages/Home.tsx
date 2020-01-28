@@ -161,7 +161,7 @@ class Home extends React.Component<never, State> {
   };
 
   public render() {
-    const { tables } = this.state;
+    const { tables, size } = this.state;
 
     return (
       <div>
@@ -201,37 +201,40 @@ class Home extends React.Component<never, State> {
               const dateString = new Date(table.time);
               const date = dateString.toLocaleDateString();
               const time = this.formatAMPM(dateString);
-
-              return (
-                <div key={index}>
-                  <TimeCard
-                    title={time}
-                    booking={table}
-                    handleBooking={this.handleBooking}
-                  >
-                    {this.state.booked ? (
-                      <div
-                        style={{
-                          padding: 20
-                        }}
-                      >
-                        <p>Your booking has been confirmed</p>
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          padding: 20
-                        }}
-                      >
-                        <p>Date: {date}</p>
-                        <p>Time: {time}</p>
-                        <p>Table for: {table.size}</p>
-                        <p>Booking under: Test</p>
-                      </div>
-                    )}
-                  </TimeCard>
-                </div>
-              );
+              if (size >= table.minSize && size < table.size) {
+                return (
+                  <div key={index}>
+                    <TimeCard
+                      title={time}
+                      booking={table}
+                      handleBooking={this.handleBooking}
+                    >
+                      {this.state.booked ? (
+                        <div
+                          style={{
+                            padding: 20
+                          }}
+                        >
+                          <p>Your booking has been confirmed</p>
+                        </div>
+                      ) : (
+                        <div
+                          style={{
+                            padding: 20
+                          }}
+                        >
+                          <p>Date: {date}</p>
+                          <p>Time: {time}</p>
+                          <p>Table for: {table.size}</p>
+                          <p>Booking under: Test</p>
+                        </div>
+                      )}
+                    </TimeCard>
+                  </div>
+                );
+              } else {
+                return null;
+              }
             })}
           </div>
         </Container>
