@@ -69,7 +69,7 @@ class Home extends React.Component<never, State> {
         dateTime: bookingDate,
         name: "Test User",
         size: this.state.size,
-        booked: true
+        booked: "booked"
       }
     })
       .then(response => {
