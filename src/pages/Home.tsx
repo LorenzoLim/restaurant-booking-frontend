@@ -120,7 +120,7 @@ class Home extends React.Component<never, State> {
       .then(response => {
         const tableSizeMatch = response.data
           .map((booking: any) => {
-            if (booking.status == "booked") {
+            if (booking.status === "booked") {
               if (this.state.size <= 2 && booking.size === 2) {
                 booking.size = this.state.size;
                 return booking;
