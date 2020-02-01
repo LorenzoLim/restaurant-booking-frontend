@@ -122,6 +122,7 @@ class Home extends React.Component<never, State> {
           .map((booking: any) => {
             if (booking.status === "booked") {
               // Fix this
+              // Book now button is appearing on all other times, fix before continuing
               return null;
             } else {
               return null;
