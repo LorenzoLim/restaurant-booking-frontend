@@ -123,6 +123,7 @@ class Home extends React.Component<never, State> {
             if (booking.status === "booked") {
               // Fix this
               // Book now button is appearing on all other times, fix before continuing
+              // Research on how to make modal close by clicking on the overlay
               return null;
             } else {
               return null;
