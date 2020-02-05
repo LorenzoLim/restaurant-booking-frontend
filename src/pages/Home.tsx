@@ -9,6 +9,7 @@ const moment = require("moment");
 
 interface State {
   date?: Date;
+  availabilities?: Date;
   selectedTime?: any;
   size?: number;
   booked: boolean;
@@ -118,20 +119,8 @@ class Home extends React.Component<never, State> {
       }
     })
       .then(response => {
-        const tableSizeMatch = response.data
-          .map((booking: any) => {
-            if (booking.status === "booked") {
-              // Fix this.
-              // Book now button is appearing on all other times, fix before continuing.
-              // Research on how to make modal close by clicking on the overlay.
-              return null;
-            } else {
-              return null;
-            }
-          })
-          .filter((booking: any) => booking);
         this.setState({
-          bookings: tableSizeMatch
+          availabilities: response.data
         });
       })
       .catch(error => {
