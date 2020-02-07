@@ -9,7 +9,7 @@ const moment = require("moment");
 
 interface State {
   date?: Date;
-  availabilities?: Date;
+  availabilities?: any;
   selectedTime?: any;
   size?: number;
   booked: boolean;
@@ -24,11 +24,13 @@ class Home extends React.Component<never, State> {
     size: 1,
     booked: false,
     bookings: [],
-    tables: []
+    tables: [],
+    availabilities: []
   };
 
   componentDidMount() {
     this.fetchTimes();
+    this.fetchAvailibities();
   }
 
   handleDate = (date: any) => {
@@ -54,21 +56,21 @@ class Home extends React.Component<never, State> {
   };
 
   handleBooking = (booking: any) => {
-    const bookingDate = new Date(booking.dateTime);
+    const bookingDate = new Date(booking.time);
     this.setState({
       booked: !this.state.booked,
       selectedTime: bookingDate
     });
 
     api({
-      method: "put",
-      url: `/bookings/${booking._id}`,
+      method: "post",
+      url: `/bookings`,
       headers: { "Content-Type": "application/json" },
       data: {
         dateTime: bookingDate,
         name: "Test User",
         size: this.state.size,
-        booked: "booked"
+        status: "booked"
       }
     })
       .then(response => {
@@ -108,7 +110,6 @@ class Home extends React.Component<never, State> {
 
   fetchAvailibities = () => {
     const date = this.state.date ? this.state.date : new Date();
-    console.log(date);
 
     api({
       method: "post",
@@ -119,9 +120,12 @@ class Home extends React.Component<never, State> {
       }
     })
       .then(response => {
-        this.setState({
-          availabilities: response.data
-        });
+        this.setState(
+          {
+            availabilities: response.data
+          },
+          () => console.log(this.state.availabilities)
+        );
       })
       .catch(error => {
         console.log(error);
@@ -181,6 +185,13 @@ class Home extends React.Component<never, State> {
               const date = dateString.toLocaleDateString();
               const time = this.formatAMPM(dateString);
               if (size >= table.minSize && size < table.size) {
+                this.state.availabilities.map((availability: any) => {
+                  console.log("Hello", availability);
+
+                  if (table.time === availability.dateTime) {
+                    console.log("I cant believe it worked");
+                  }
+                });
                 return (
                   <div key={index}>
                     <TimeCard
@@ -211,8 +222,6 @@ class Home extends React.Component<never, State> {
                     </TimeCard>
                   </div>
                 );
-              } else {
-                return null;
               }
             })}
           </div>
