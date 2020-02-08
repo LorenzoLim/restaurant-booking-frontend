@@ -186,8 +186,6 @@ class Home extends React.Component<never, State> {
               const time = this.formatAMPM(dateString);
               if (size >= table.minSize && size < table.size) {
                 this.state.availabilities.map((availability: any) => {
-                  console.log("Hello", availability);
-
                   if (table.time === availability.dateTime) {
                     console.log("I cant believe it worked");
                   }
