@@ -185,11 +185,6 @@ class Home extends React.Component<never, State> {
               const date = dateString.toLocaleDateString();
               const time = this.formatAMPM(dateString);
               if (size >= table.minSize && size < table.size) {
-                this.state.availabilities.map((availability: any) => {
-                  if (table.time === availability.dateTime) {
-                    console.log("I cant believe it worked");
-                  }
-                });
                 return (
                   <div key={index}>
                     <TimeCard
