@@ -124,7 +124,7 @@ class Home extends React.Component<never, State> {
           {
             availabilities: response.data
           },
-          () => console.log(this.state.availabilities)
+          () => console.log("Did it even get in here?", response)
         );
       })
       .catch(error => {
@@ -185,6 +185,8 @@ class Home extends React.Component<never, State> {
               const date = dateString.toLocaleDateString();
               const time = this.formatAMPM(dateString);
               if (size >= table.minSize && size < table.size) {
+                if (this.state.availabilities.length) {
+                }
                 return (
                   <div key={index}>
                     <TimeCard
