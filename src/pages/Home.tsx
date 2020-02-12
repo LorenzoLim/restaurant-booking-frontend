@@ -56,7 +56,10 @@ class Home extends React.Component<never, State> {
   };
 
   handleBooking = (booking: any) => {
-    const bookingDate = new Date(booking.time);
+    const bookingDate = this.state.date.setTime(
+      new Date(booking.time).getTime()
+    );
+
     this.setState({
       booked: !this.state.booked,
       selectedTime: bookingDate
@@ -185,8 +188,8 @@ class Home extends React.Component<never, State> {
               const date = dateString.toLocaleDateString();
               const time = this.formatAMPM(dateString);
               if (size >= table.minSize && size < table.size) {
-                if (this.state.availabilities.length) {
-                }
+                // if (this.state.availabilities.length) {
+                // }
                 return (
                   <div key={index}>
                     <TimeCard
