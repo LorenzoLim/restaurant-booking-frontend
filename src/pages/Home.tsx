@@ -71,7 +71,7 @@ class Home extends React.Component<never, State> {
       headers: { "Content-Type": "application/json" },
       data: {
         dateTime: bookingDate,
-        name: "John Smith",
+        name: "Lorenzo Lim",
         size: this.state.size,
         status: "booked"
       }
