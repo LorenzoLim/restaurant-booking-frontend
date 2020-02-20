@@ -60,6 +60,8 @@ class Home extends React.Component<never, State> {
       new Date(booking.time).getTime()
     );
 
+    console.log("booking date: ", bookingDate);
+
     this.setState({
       booked: !this.state.booked,
       selectedTime: bookingDate
