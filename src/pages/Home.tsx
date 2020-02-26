@@ -12,7 +12,6 @@ interface State {
   availabilities?: any;
   selectedTime?: any;
   size?: number;
-  booked: boolean;
   bookings: any;
   tables?: any;
 }
@@ -22,7 +21,6 @@ class Home extends React.Component<never, State> {
     date: new Date(),
     selectedTime: new Date(),
     size: 1,
-    booked: false,
     bookings: [],
     tables: [],
     availabilities: []
@@ -63,7 +61,6 @@ class Home extends React.Component<never, State> {
     console.log("booking date: ", bookingDate);
 
     this.setState({
-      booked: !this.state.booked,
       selectedTime: bookingDate
     });
 
@@ -199,26 +196,16 @@ class Home extends React.Component<never, State> {
                       booking={table}
                       handleBooking={this.handleBooking}
                     >
-                      {this.state.booked ? (
-                        <div
-                          style={{
-                            padding: 20
-                          }}
-                        >
-                          <p>Your booking has been confirmed</p>
-                        </div>
-                      ) : (
-                        <div
-                          style={{
-                            padding: 20
-                          }}
-                        >
-                          <p>Date: {date}</p>
-                          <p>Time: {time}</p>
-                          <p>Table for: {table.size}</p>
-                          <p>Booking under: Test</p>
-                        </div>
-                      )}
+                      <div
+                        style={{
+                          padding: 20
+                        }}
+                      >
+                        <p>Date: {date}</p>
+                        <p>Time: {time}</p>
+                        <p>Table for: {table.size}</p>
+                        <p>Booking under: Test</p>
+                      </div>
                     </TimeCard>
                   </div>
                 );
