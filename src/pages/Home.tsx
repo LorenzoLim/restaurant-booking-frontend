@@ -204,7 +204,7 @@ class Home extends React.Component<never, State> {
                         <p>Date: {date}</p>
                         <p>Time: {time}</p>
                         <p>Table for: {table.size}</p>
-                        <p>Booking under: Test</p>
+                        <p>Booking under: New User</p>
                       </div>
                     </TimeCard>
                   </div>
