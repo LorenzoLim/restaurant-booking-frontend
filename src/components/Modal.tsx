@@ -10,6 +10,7 @@ interface Props {
 
 interface State {
   open: boolean;
+  booked: boolean;
 }
 
 class Modal extends React.Component<Props, State> {
@@ -17,7 +18,8 @@ class Modal extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      open: this.props.open!
+      open: this.props.open!,
+      booked: false
     };
   }
 
@@ -39,7 +41,14 @@ class Modal extends React.Component<Props, State> {
   };
 
   setTime = () => {
+    this.setState({
+      booked: !this.state.booked
+    });
     this.props.handleBooking(this.props.booking);
+  };
+
+  cancelBooking = () => {
+    console.log("Implement this");
   };
 
   public render() {
@@ -99,7 +108,13 @@ class Modal extends React.Component<Props, State> {
               </div>
               {this.props.children}
               <div style={{ margin: "0px 0px 20px 20px" }}>
-                <RaisedButton onClick={this.setTime}>Book Now</RaisedButton>
+                {!this.state.booked ? (
+                  <RaisedButton onClick={this.setTime}>Book Now</RaisedButton>
+                ) : (
+                  <RaisedButton onClick={this.cancelBooking}>
+                    Cancel Booking
+                  </RaisedButton>
+                )}
               </div>
             </div>
           </div>
