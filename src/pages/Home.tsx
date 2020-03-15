@@ -186,7 +186,7 @@ class Home extends React.Component<never, State> {
               const dateString = new Date(table.time);
               const date = dateString.toLocaleDateString();
               const time = this.formatAMPM(dateString);
-              if (size >= table.minSize && size < table.size) {
+              if (size >= table.minSize && size <= table.size) {
                 // if (this.state.availabilities.length) {
                 // }
                 return (
