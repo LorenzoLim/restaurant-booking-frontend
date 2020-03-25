@@ -48,7 +48,7 @@ class Modal extends React.Component<Props, State> {
   };
 
   cancelBooking = () => {
-    console.log("Implement this");
+    // Implement this
   };
 
   public render() {

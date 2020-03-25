@@ -210,6 +210,7 @@ class Home extends React.Component<never, State> {
                   </div>
                 );
               }
+              return null;
             })}
           </div>
         </Container>
