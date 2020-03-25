@@ -52,8 +52,6 @@ class Home extends React.Component<never, State> {
 
   handleBooking = (booking: any) => {
     const bookingDate = new Date(booking.dateTime);
-    console.log(booking._id);
-
     this.setState({
       booked: !this.state.booked,
       selectedTime: bookingDate

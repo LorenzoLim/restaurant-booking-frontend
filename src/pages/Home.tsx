@@ -58,7 +58,7 @@ class Home extends React.Component<never, State> {
       new Date(booking.time).getTime()
     );
 
-    console.log("booking date: ", bookingDate);
+    console.log(bookingDate);
 
     this.setState({
       selectedTime: bookingDate
@@ -81,6 +81,7 @@ class Home extends React.Component<never, State> {
       .catch(error => {
         console.log(error);
       });
+    this.fetchAvailibities();
   };
 
   fetchTimes = () => {
@@ -122,12 +123,11 @@ class Home extends React.Component<never, State> {
       }
     })
       .then(response => {
-        this.setState(
-          {
-            availabilities: response.data
-          },
-          () => console.log("Did it even get in here?", response)
-        );
+        console.log("Response: ", response);
+
+        this.setState({
+          availabilities: response.data
+        });
       })
       .catch(error => {
         console.log(error);
